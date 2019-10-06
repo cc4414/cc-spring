@@ -84,11 +84,9 @@ public class ControllerAspect {
 	}
 
 	/**
-	 * 将对象obj中有{@link @SetNull}注解的字段根据分组class设置空值
-	 * 
-	 * 字段上的{@link @SetNull}注解没有value参数时，该字段设置为空
-	 * 
-	 * 字段上的{@link @SetNull}注解有value参数时，参数包含了分组class中的任意一个class，该字段设置为空
+	 * 将对象obj中有 SetNull 注解的字段根据分组class设置空值<br>
+	 * 字段上的 SetNull 注解没有value参数时，该字段设置为空<br>
+	 * 字段上的 SetNull 注解有value参数时，参数包含了分组class中的任意一个class，该字段设置为空<br>
 	 * 
 	 * @param obj   对象
 	 * @param clazz 分组class
