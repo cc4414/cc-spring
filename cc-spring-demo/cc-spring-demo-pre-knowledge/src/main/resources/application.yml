@@ -1,0 +1,4 @@
+jasypt:
+  encryptor:
+    password: demo
+test: ENC(Aj35A2YblMMdLBQ246t9KA==)
