@@ -117,7 +117,7 @@
 		<java.version>1.8</java.version>
 		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
 		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-		<cc.version>${project.version}</cc.version>
+		<cc.version>0.2.0-SNAPSHOT</cc.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
