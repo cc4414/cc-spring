@@ -24,8 +24,4 @@ public class JasyptUtils {
 		encryptor.setPassword(password);
 		return encryptor.decrypt(message);
 	}
-
-	public static void main(String[] args) {
-		System.out.println(encrypt("demo", "123456"));
-	}
 }
