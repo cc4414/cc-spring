@@ -3,9 +3,11 @@ package cc.cc4414.spring.resource.util;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
+import org.springframework.security.jwt.crypto.sign.MacSigner;
 
 import cc.cc4414.spring.resource.core.ResourceConsts;
 import cn.hutool.json.JSON;
+import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import lombok.experimental.UtilityClass;
 
@@ -43,5 +45,21 @@ public class TokenUtils {
 			}
 		}
 		return false;
+	}
+
+	/**
+	 * 根据用户信息和秘钥生成令牌
+	 * 
+	 * @param user 用户
+	 * @param key  秘钥
+	 * @return 生成的令牌
+	 */
+	public String createAccessToken(Object user, String key) {
+		JSONObject obj = JSONUtil.parseObj(user);
+		// 有效期12小时
+		obj.put("exp", System.currentTimeMillis() / 1000 + 3600 * 12);
+		// 创建时间为当前
+		obj.put(ResourceConsts.IAT, System.currentTimeMillis());
+		return JwtHelper.encode(obj.toString(), new MacSigner(key)).getEncoded();
 	}
 }
