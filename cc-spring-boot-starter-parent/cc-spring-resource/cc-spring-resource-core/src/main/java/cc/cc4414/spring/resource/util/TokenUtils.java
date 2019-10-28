@@ -50,7 +50,7 @@ public class TokenUtils {
 	/**
 	 * 根据用户信息和秘钥生成令牌
 	 * 
-	 * @param user 用户
+	 * @param user 用户，其中权限字段为authorities，是个Collection
 	 * @param key  秘钥
 	 * @return 生成的令牌
 	 */

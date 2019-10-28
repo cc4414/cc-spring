@@ -1,3 +1,3 @@
 cc-spring:
   resource:
-    signing-key: cc-spring
+    signing-key: cc-spring  common:    microservice: true
