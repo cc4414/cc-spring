@@ -1,7 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.Arrays;
-
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,8 +8,6 @@ import cc.cc4414.spring.resource.core.CommonUser;
 import cc.cc4414.spring.resource.util.TokenUtils;
 import cc.cc4414.spring.resource.util.UserUtils;
 import cc.cc4414.spring.web.core.ResultAnnotation;
-import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
 
 @RestController
 public class ResourceController {
@@ -52,8 +48,8 @@ public class ResourceController {
 	}
 
 	public static void main(String[] args) {
-		JSONObject obj = JSONUtil.parseObj(CommonUser.getSys());
-		obj.put("authorities", Arrays.asList("xxx"));
-		System.out.println(TokenUtils.createAccessToken(obj, "cc-spring"));
+		CommonUser sys = CommonUser.getSys();
+		sys.getAuthorities().add("xxx");
+		System.out.println(TokenUtils.createAccessToken(sys, "cc-spring"));
 	}
 }
