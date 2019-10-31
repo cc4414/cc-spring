@@ -22,8 +22,8 @@ public class TokenUtils {
 	 * 判断token是否失效<br>
 	 * jwt是无状态的，所以注销问题是个痛点，这里采取黑名单的形式解决这个问题<br>
 	 * 每个jwt生成的时候，里面包含用户的id以及创建时间iat<br>
-	 * 当想要强制让某些jwt失效时，在redis中以id为key，iat为value保存一条数据<br>
-	 * 每次请求都校验redis中id对应的iat，如果redis中存在对应的iat，并且晚于jwt中的iat，则jwt无效<br>
+	 * 当想要强制让某些jwt失效时，在redis中以id为key，当前时间为value保存一条数据<br>
+	 * 每次请求都校验redis中id对应的时间，如果redis中存在对应的时间，并且晚于jwt中的iat，则jwt无效<br>
 	 * 
 	 * @param value         token值，包含bearer
 	 * @param redisTemplate StringRedisTemplate
