@@ -185,6 +185,8 @@
 		<module>cc-spring-boot-starter</module>
 		<module>cc-spring-web</module>
 		<module>cc-spring-resource</module>
+		<module>cc-spring-mybatis</module>
+		<module>cc-spring-cloud-starter</module>
 	</modules>
 	<profiles>
 		<profile>

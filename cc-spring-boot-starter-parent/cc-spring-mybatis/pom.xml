@@ -8,10 +8,10 @@
 		<artifactId>cc-spring-boot-starter-parent</artifactId>
 		<version>0.3.0</version>
 	</parent>
-	<artifactId>cc-spring-resource</artifactId>
+	<artifactId>cc-spring-mybatis</artifactId>
 	<packaging>pom</packaging>
 	<modules>
-		<module>cc-spring-resource-core</module>
-		<module>cc-spring-resource-starter</module>
+		<module>cc-spring-mybatis-core</module>
+		<module>cc-spring-mybatis-starter</module>
 	</modules>
 </project>
