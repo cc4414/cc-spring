@@ -34,7 +34,7 @@ public class BaseEntity implements Serializable {
 	@TableField(fill = FieldFill.INSERT)
 	private String deptName;
 
-	/** 逻辑删除：0为未删除，1为删除 */
+	/** 逻辑删除：0为未删除，null为删除 */
 	@TableField(fill = FieldFill.INSERT)
 	@TableLogic
 	private Integer deleted;

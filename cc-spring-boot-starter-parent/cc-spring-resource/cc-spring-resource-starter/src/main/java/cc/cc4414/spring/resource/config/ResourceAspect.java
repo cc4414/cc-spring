@@ -65,7 +65,10 @@ public class ResourceAspect {
 		}
 		if (inner) {
 			// 如果是内部请求，传递租户id(用户为sys的情况)
-			user.setTenantId(request.getHeader(ResourceConsts.TENANT_ID));
+			String tenantId = request.getHeader(ResourceConsts.TENANT_ID);
+			if (tenantId != null) {
+				user.setTenantId(tenantId);
+			}
 		}
 		try {
 			// 线程变量中保存token和user
