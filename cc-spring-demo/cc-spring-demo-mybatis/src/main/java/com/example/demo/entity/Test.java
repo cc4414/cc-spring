@@ -6,11 +6,9 @@ import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
+@EqualsAndHashCode(callSuper = true)
 @TableName("mybatis_test")
 @ApiModel(value = "Test对象", description = "测试表")
 public class Test extends BaseEntity {

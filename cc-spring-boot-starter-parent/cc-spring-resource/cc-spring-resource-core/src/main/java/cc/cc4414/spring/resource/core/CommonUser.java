@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
  * @author cc 2019年10月21日
  */
 @Data
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = true)
 public class CommonUser extends BaseUser {
 	private static final long serialVersionUID = 1L;
 
