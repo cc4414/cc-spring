@@ -70,6 +70,11 @@
 				<version>1.0.9.RELEASE</version>
 			</dependency>
 			<dependency>
+				<groupId>org.springframework.security</groupId>
+				<artifactId>spring-security-crypto</artifactId>
+				<version>5.1.6.RELEASE</version>
+			</dependency>
+			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-boot-starter</artifactId>
 				<version>${cc.version}</version>

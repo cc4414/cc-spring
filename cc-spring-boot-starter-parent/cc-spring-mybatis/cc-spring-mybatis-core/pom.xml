@@ -14,5 +14,10 @@
 			<groupId>cc.cc4414</groupId>
 			<artifactId>cc-spring-boot-starter</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<optional>true</optional>
+		</dependency>
 	</dependencies>
 </project>

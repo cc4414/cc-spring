@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * 基础实体，大部分的实体都需要有的字段
@@ -17,6 +18,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@Accessors(chain = true)
 public class BaseEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
