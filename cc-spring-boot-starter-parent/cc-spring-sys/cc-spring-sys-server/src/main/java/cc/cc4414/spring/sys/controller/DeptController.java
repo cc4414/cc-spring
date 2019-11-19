@@ -104,7 +104,9 @@ public class DeptController {
 	/**
 	 * 修改部门
 	 * 
-	 * @param dept 部门
+	 * @param id       部门id
+	 * @param name     名称
+	 * @param parentId 父节点id
 	 */
 	@PostMapping("updateDept")
 	@ResultAnnotation

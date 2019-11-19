@@ -48,7 +48,7 @@ public class TenantController {
 	/**
 	 * 根据id批量删除租户
 	 * 
-	 * @param ids 租户id列表
+	 * @param tenant ids为租户id列表
 	 */
 	@PostMapping("deleteBatch")
 	@ResultAnnotation

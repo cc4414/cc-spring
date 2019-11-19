@@ -70,7 +70,7 @@ public class AuthorityController {
 	/**
 	 * 根据id批量删除权限
 	 * 
-	 * @param ids 权限id列表
+	 * @param authority ids为权限id列表
 	 */
 	@PostMapping("deleteBatch")
 	@ResultAnnotation

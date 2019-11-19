@@ -59,7 +59,7 @@ public class DictItemController {
 	/**
 	 * 根据id批量删除字典项
 	 * 
-	 * @param ids 字典项id列表
+	 * @param dictItem ids为字典项id列表
 	 */
 	@PostMapping("deleteBatch")
 	@ResultAnnotation

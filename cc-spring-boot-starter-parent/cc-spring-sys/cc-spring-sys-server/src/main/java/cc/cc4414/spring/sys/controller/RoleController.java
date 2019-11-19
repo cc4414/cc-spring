@@ -77,7 +77,7 @@ public class RoleController {
 	/**
 	 * 根据id批量删除角色
 	 * 
-	 * @param ids 角色id列表
+	 * @param role ids为角色id列表
 	 */
 	@PostMapping("deleteBatch")
 	@ResultAnnotation
@@ -138,9 +138,7 @@ public class RoleController {
 	/**
 	 * 增量更新角色中的用户
 	 * 
-	 * @param id        角色id
-	 * @param deleteIds 移除的用户id列表
-	 * @param addIds    新增的用户id列表
+	 * @param role id为角色id，deleteIds为移除的用户id列表， addIds为新增的用户id列表
 	 */
 	@PostMapping("updateUser")
 	@ResultAnnotation
@@ -152,9 +150,7 @@ public class RoleController {
 	/**
 	 * 增量更新角色中的权限
 	 * 
-	 * @param id        角色id
-	 * @param deleteIds 移除的权限id列表
-	 * @param addIds    新增的权限id列表
+	 * @param role id为角色id，deleteIds为移除的权限id列表，addIds为新增的权限id列表
 	 */
 	@PostMapping("updateAuthority")
 	@ResultAnnotation

@@ -97,7 +97,7 @@ public class UserController {
 	/**
 	 * 根据id批量删除用户
 	 * 
-	 * @param ids 用户id列表
+	 * @param user ids为用户id列表
 	 */
 	@PostMapping("deleteBatch")
 	@ResultAnnotation
@@ -135,7 +135,6 @@ public class UserController {
 	 * 
 	 * @param id       用户id
 	 * @param name     名称
-	 * @param username 用户名
 	 * @param password 密码
 	 */
 	@PostMapping("update")
@@ -162,9 +161,7 @@ public class UserController {
 	/**
 	 * 增量更新用户中的角色
 	 * 
-	 * @param id        用户id
-	 * @param deleteIds 移除的角色id列表
-	 * @param addIds    新增的角色id列表
+	 * @param user id为用户id，deleteIds为移除的角色id列表，addIds为新增的角色id列表
 	 */
 	@PostMapping("updateRole")
 	@ResultAnnotation
@@ -176,9 +173,7 @@ public class UserController {
 	/**
 	 * 增量更新用户中的部门
 	 * 
-	 * @param id        用户id
-	 * @param deleteIds 移除的部门id列表
-	 * @param addIds    新增的部门id列表
+	 * @param user id为用户id，deleteIds为移除的部门id列表，addIds为新增的部门id列表
 	 */
 	@PostMapping("updateDept")
 	@ResultAnnotation
