@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cc4414.spring.sys.mapper.AuthorityMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="cc.cc4414.spring.sys.entity.Authority">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="code" property="code" />
+		<result column="url" property="url" />
+		<result column="type" property="type" />
+		<result column="deleted" property="deleted" />
+		<result column="disabled" property="disabled" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="creator_id" property="creatorId" />
+		<result column="creator_name" property="creatorName" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="modifier_id" property="modifierId" />
+		<result column="modifier_name" property="modifierName" />
+		<result column="role_id" property="roleId" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, name, code, url, type, deleted, disabled, gmt_create, creator_id,
+		creator_name, gmt_modified, modifier_id, modifier_name
+	</sql>
+
+	<select id="listByRoleIds" resultMap="BaseResultMap">
+		SELECT
+			t0.role_id,
+			t.*
+		FROM
+			sys_authority t
+		INNER JOIN sys_role_authority t0 ON t0.authority_id = t.id
+		AND t.deleted = 0
+		AND t0.role_id IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator=", " close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<select id="listByUserId" resultMap="BaseResultMap">
+		SELECT
+			a.*
+		FROM
+			sys_authority a
+		LEFT JOIN sys_role_authority ra ON ra.authority_id = a.id
+		LEFT JOIN sys_role r ON ra.role_id = r.id
+		LEFT JOIN sys_user_role ur ON ur.role_id = r.id
+		LEFT JOIN sys_user u ON ur.user_id = u.id
+		WHERE
+			u.id = #{userId}
+		AND a.deleted = 0
+		AND a.disabled = 0
+		AND r.deleted = 0
+		AND r.disabled = 0
+		AND u.deleted = 0
+		AND u.disabled = 0
+	</select>
+
+</mapper>

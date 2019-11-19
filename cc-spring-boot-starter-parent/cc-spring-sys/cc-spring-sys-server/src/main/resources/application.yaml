@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: sys
+cc-spring:
+  mybatis:
+    tenant:
+      tables:
+      - sys_user
+      - sys_role
+      - sys_dept
+      - sys_tree_path
+logging:
+  level:
+    cc.cc4414.spring: debug
+feign:
+  client:
+    config:
+      default:
+        logger-level: basic
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  global-config:
+    db-config:
+      id-type: id-worker-str

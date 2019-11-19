@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cc4414.spring.sys.mapper.DeptMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="cc.cc4414.spring.sys.entity.Dept">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="deleted" property="deleted" />
+		<result column="disabled" property="disabled" />
+		<result column="tenant_id" property="tenantId" />
+		<result column="gmt_create" property="gmtCreate" />
+		<result column="creator_id" property="creatorId" />
+		<result column="creator_name" property="creatorName" />
+		<result column="gmt_modified" property="gmtModified" />
+		<result column="modifier_id" property="modifierId" />
+		<result column="modifier_name" property="modifierName" />
+		<result column="user_id" property="userId" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, name, deleted, disabled, tenant_id, gmt_create, creator_id,
+		creator_name, gmt_modified, modifier_id, modifier_name
+	</sql>
+
+	<select id="listByUserIds" resultMap="BaseResultMap">
+		SELECT
+			t0.user_id,
+			t.*
+		FROM
+			sys_dept t
+		INNER JOIN sys_user_dept t0 ON t0.dept_id = t.id
+		AND t.deleted = 0
+		AND t0.user_id IN
+		<foreach collection="list" index="index" item="item" open="("
+			separator=", " close=")">
+			#{item}
+		</foreach>
+	</select>
+
+</mapper>

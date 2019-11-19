@@ -192,6 +192,7 @@
 		<module>cc-spring-resource</module>
 		<module>cc-spring-mybatis</module>
 		<module>cc-spring-cloud-starter</module>
+		<module>cc-spring-sys</module>
 	</modules>
 	<profiles>
 		<profile>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cc.cc4414.spring.sys.mapper.TreePathMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="cc.cc4414.spring.sys.entity.TreePath">
+		<id column="id" property="id" />
+		<result column="ancestor" property="ancestor" />
+		<result column="descendant" property="descendant" />
+		<result column="distance" property="distance" />
+		<result column="tenant_id" property="tenantId" />
+		<result column="scope" property="scope" />
+	</resultMap>
+
+	<!-- 通用查询结果列 -->
+	<sql id="Base_Column_List">
+		id, ancestor, descendant, distance, tenant_id, scope
+	</sql>
+
+	<select id="listRootNodesByScope" resultType="String">
+		SELECT
+			descendant
+		FROM
+			sys_tree_path
+		WHERE
+			scope = #{scope}
+		GROUP BY
+			descendant
+		HAVING
+			COUNT(*) = 1
+	</select>
+
+</mapper>
