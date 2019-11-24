@@ -26,6 +26,8 @@ import cc.cc4414.spring.mybatis.service.impl.CcServiceImpl;
 import cc.cc4414.spring.mybatis.update.UpdateObservable;
 import cc.cc4414.spring.mybatis.update.UpdateService;
 import cc.cc4414.spring.mybatis.update.UpdateUtils;
+import cc.cc4414.spring.resource.util.UserUtils;
+import cc.cc4414.spring.sys.constant.SysConsts;
 import cc.cc4414.spring.sys.entity.Dept;
 import cc.cc4414.spring.sys.entity.Role;
 import cc.cc4414.spring.sys.entity.User;
@@ -35,6 +37,7 @@ import cc.cc4414.spring.sys.mapper.UserMapper;
 import cc.cc4414.spring.sys.result.SysResultEnum;
 import cc.cc4414.spring.sys.service.IDeptService;
 import cc.cc4414.spring.sys.service.IRoleService;
+import cc.cc4414.spring.sys.service.ITenantService;
 import cc.cc4414.spring.sys.service.IUserDeptService;
 import cc.cc4414.spring.sys.service.IUserRoleService;
 import cc.cc4414.spring.sys.service.IUserService;
@@ -63,6 +66,9 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 
 	@Autowired
 	private IDeptService iDeptService;
+
+	@Autowired
+	private ITenantService iTenantService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -351,6 +357,34 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		list.forEach(i -> map.get(i.getDeptId()).add(i));
 		log.debug("查询成功");
 		return map;
+	}
+
+	@Override
+	public User getByUsername(String username) {
+		log.debug("开始根据用户名查询用户: username={}", username);
+		String tenantId = SysConsts.ID;
+		// username可能为 用户名:租户id
+		String[] strings = username.split(":");
+		if (strings.length > 1) {
+			// 如果username中有租户id，则给tenantId赋值并进行检查
+			username = strings[0];
+			tenantId = strings[1];
+			if (!SysConsts.ID.equals(tenantId)) {
+				try {
+					iTenantService.checkAllIsEnable(Arrays.asList(tenantId));
+				} catch (ResultException e) {
+					log.debug("查询成功: null");
+					return null;
+				}
+			}
+		}
+		UserUtils.getUser().setTenantId(tenantId);
+		LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
+		wrapper.eq(User::getUsername, username);
+		wrapper.eq(User::getDisabled, 0);
+		User user = getOne(wrapper);
+		log.debug("查询成功");
+		return user;
 	}
 
 	@Override

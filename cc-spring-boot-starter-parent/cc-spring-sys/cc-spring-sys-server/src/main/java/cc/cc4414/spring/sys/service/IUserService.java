@@ -185,6 +185,14 @@ public interface IUserService extends ICcService<User> {
 	Map<String, List<User>> listMapByDeptIds(List<String> ids);
 
 	/**
+	 * 根据用户名查询用户（校验用户所在租户是否存在）
+	 * 
+	 * @param username 用户名，也可以是"用户名:租户id"
+	 * @return 用户，未查询到可用用户时返回null
+	 */
+	User getByUsername(String username);
+
+	/**
 	 * 修改密码
 	 * 
 	 * @param id          用户id

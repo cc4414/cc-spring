@@ -1,7 +1,5 @@
 package cc.cc4414.spring.sys.controller;
 
-import java.util.Arrays;
-
 import javax.validation.constraints.Pattern;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,17 +11,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
-import cc.cc4414.spring.common.result.ResultException;
 import cc.cc4414.spring.resource.util.UserUtils;
 import cc.cc4414.spring.sys.constant.RegexpConsts;
 import cc.cc4414.spring.sys.entity.User;
 import cc.cc4414.spring.sys.entity.User.ResultPassword;
-import cc.cc4414.spring.sys.service.ITenantService;
 import cc.cc4414.spring.sys.service.IUserService;
 import cc.cc4414.spring.web.core.ResultAnnotation;
 import cc.cc4414.spring.web.core.SetNull;
@@ -40,8 +35,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 	private final IUserService iUserService;
-
-	private final ITenantService iTenantService;
 
 	/**
 	 * 新增用户
@@ -215,24 +208,13 @@ public class UserController {
 	/**
 	 * 根据用户名查询用户（校验用户所在租户是否存在）
 	 * 
-	 * @param username 用户名
+	 * @param username 用户名，也可以是"用户名:租户id"
 	 * @return 用户，未查询到可用用户时返回null
 	 */
 	@GetMapping("getByUsername")
 	@ResultAnnotation
 	public User getByUsername(@RequestParam String username) {
-		LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery();
-		wrapper.eq(User::getUsername, username);
-		wrapper.eq(User::getDisabled, 0);
-		User user = iUserService.getOne(wrapper);
-		if (user != null) {
-			try {
-				iTenantService.checkAllIsEnable(Arrays.asList(user.getTenantId()));
-			} catch (ResultException e) {
-				return null;
-			}
-		}
-		return user;
+		return iUserService.getByUsername(username);
 	}
 
 	/**
