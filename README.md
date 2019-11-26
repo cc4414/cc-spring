@@ -13,7 +13,7 @@ cc-spring的各个模块分别整合了spring boot、spring cloud alibaba、myba
 <parent>
     <groupId>cc.cc4414</groupId>
     <artifactId>cc-spring-boot-starter-parent</artifactId>
-    <version>0.1.0</version>
+    <version>0.5.0</version>
 </parent>
 ```
 
