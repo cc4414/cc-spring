@@ -69,8 +69,8 @@ spring boot项目启动
 
 仅仅引入了一个依赖，就集成了swagger，对异常结果也进行了处理，并且仅通过一个简单的注解@ResultAnnotation，使得返回的结果有统一的报文格式。<br>
 还有分布式锁、重试、异常通知等功能，也可以仅仅通过一个注解方便的实现。<br>
-其他模块还有更多强大的功能等着你来尝试，请看[详细教程](https://cc4414.gitee.io/cc-spring-doc)
-
+其他模块还有更多强大的功能等着你来尝试，请看[详细教程](https://cc4414.gitee.io/cc-spring-doc)。<br>
+单体应用的完整demo请看[cc-spring-demo-monolith](https://gitee.com/cc4414/cc-spring/tree/master/cc-spring-demo/cc-spring-demo-monolith)。
 ## 项目结构
 ``` lua
 cc-spring
