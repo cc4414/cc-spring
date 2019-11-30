@@ -7,14 +7,20 @@ cc-spring的各个模块分别整合了spring boot、spring cloud alibaba、myba
 ## 快速开始
 该框架基于spring boot，所以在一个新建的spring boot工程里面进行如下操作
 
-1. 将父工程改为
+1. 在 dependencyManagement 中添加如下配置
 
 ``` xml
-<parent>
-    <groupId>cc.cc4414</groupId>
-    <artifactId>cc-spring-boot-starter-parent</artifactId>
-    <version>0.5.0</version>
-</parent>
+<dependencyManagement>
+    <dependencies>
+        <dependency>
+            <groupId>cc.cc4414</groupId>
+            <artifactId>cc-spring-boot-starter-parent</artifactId>
+            <version>0.5.1</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
+    </dependencies>
+</dependencyManagement>
 ```
 
 2. 引入依赖
@@ -99,10 +105,10 @@ cc-spring
 └── web -- 前端页面
 ```
 ## 核心模块
-- cc-spring-boot-starter
-- cc-spring-web
-- cc-spring-mybatis
-- cc-spring-sys
-- cc-spring-resource
-- cc-spring-auth
-- cc-spring-cloud-starter-gateway
+- [cc-spring-boot-starter](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-boot-starter.html)
+- [cc-spring-web](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-web.html)
+- [cc-spring-mybatis](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-mybatis.html)
+- [cc-spring-sys](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-sys.html)
+- [cc-spring-resource](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-resource.html)
+- [cc-spring-auth](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-auth.html)
+- [cc-spring-cloud-starter-gateway](https://cc4414.gitee.io/cc-spring-doc/guide/cc-spring-cloud-starter-gateway.html)
