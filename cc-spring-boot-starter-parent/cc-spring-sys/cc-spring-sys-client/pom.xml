@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cc.cc4414</groupId>
 		<artifactId>cc-spring-sys</artifactId>
-		<version>0.5.1</version>
+		<version>0.6.0</version>
 	</parent>
 	<artifactId>cc-spring-sys-client</artifactId>
 	<dependencies>
