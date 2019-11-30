@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cc.cc4414</groupId>
 		<artifactId>cc-spring-web</artifactId>
-		<version>0.5.1</version>
+		<version>0.5.2</version>
 	</parent>
 	<artifactId>cc-spring-web-starter</artifactId>
 	<dependencies>
