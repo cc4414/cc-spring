@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.9.RELEASE</version>
+		<version>2.2.1.RELEASE</version>
 	</parent>
 	<groupId>cc.cc4414</groupId>
 	<artifactId>cc-spring-boot-starter-parent</artifactId>
@@ -44,9 +44,8 @@
 	</distributionManagement>
 	<properties>
 		<java.version>1.8</java.version>
-		<spring-cloud.version>Greenwich.SR3</spring-cloud.version>
-		<spring-cloud-alibaba.version>2.1.0.RELEASE</spring-cloud-alibaba.version>
-		<cc.version>0.5.1</cc.version>
+		<spring-cloud.version>Hoxton.RELEASE</spring-cloud.version>
+		<spring-cloud-alibaba.version>2.1.1.RELEASE</spring-cloud-alibaba.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -72,77 +71,77 @@
 			<dependency>
 				<groupId>org.springframework.security</groupId>
 				<artifactId>spring-security-crypto</artifactId>
-				<version>5.1.6.RELEASE</version>
+				<version>5.2.1.RELEASE</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-boot-starter</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-cloud-starter</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-cloud-starter-gateway</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-web-core</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-web-starter</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-mybatis-core</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-mybatis-starter</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-resource-core</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-resource-starter</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-auth-client</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-auth-server</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-sys-client</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-sys-server</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>cc.cc4414</groupId>
 				<artifactId>cc-spring-generator</artifactId>
-				<version>${cc.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>com.baomidou</groupId>
@@ -162,7 +161,7 @@
 			<dependency>
 				<groupId>cn.hutool</groupId>
 				<artifactId>hutool-all</artifactId>
-				<version>5.0.3</version>
+				<version>5.0.6</version>
 			</dependency>
 			<dependency>
 				<groupId>com.github.ulisesbocchio</groupId>
