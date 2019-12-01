@@ -1,3 +1,7 @@
+# cc-spring
+![Maven Central](https://img.shields.io/maven-central/v/cc.cc4414/cc-spring-boot-starter-parent)
+![GitHub](https://img.shields.io/github/license/cc4414/cc-spring)
+![GitHub repo size](https://img.shields.io/github/repo-size/cc4414/cc-spring)
 ## 简介
 cc-spring是一套基于spring的快速开发框架。它提供了一系列可插拔的模块，你可以利用它快速构建一个单体应用或者一个微服务应用。
 
@@ -15,7 +19,7 @@ cc-spring的各个模块分别整合了spring boot、spring cloud alibaba、myba
         <dependency>
             <groupId>cc.cc4414</groupId>
             <artifactId>cc-spring-boot-starter-parent</artifactId>
-            <version>0.5.1</version>
+            <version>latest</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
