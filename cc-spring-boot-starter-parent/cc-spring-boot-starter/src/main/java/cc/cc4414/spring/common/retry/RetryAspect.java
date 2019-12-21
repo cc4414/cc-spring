@@ -7,7 +7,7 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 通过在方法上增加注解进行重试
@@ -16,29 +16,26 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Aspect
 @Component
+@RequiredArgsConstructor
 @Order(2)
-@Slf4j
 public class RetryAspect {
+
+	private final RetryTemplate retryTemplate;
 
 	@Around("@annotation(retryAnnotation)")
 	public Object around(ProceedingJoinPoint pjp, RetryAnnotation retryAnnotation) throws Throwable {
-		Object result = null;
 		retryAnnotation = AnnotationUtils.synthesizeAnnotation(retryAnnotation, null);
 		int retries = retryAnnotation.retries();
 		long interval = retryAnnotation.interval();
-		for (int i = 0; i <= retries; i++) {
+		return retryTemplate.retry(() -> {
 			try {
-				result = pjp.proceed();
-				break;
-			} catch (Exception e) {
-				log.error("方法执行失败第{}次", i + 1);
-				if (i == retries) {
-					throw e;
-				}
-				Thread.sleep(interval << i);
+				return pjp.proceed();
+			} catch (RuntimeException re) {
+				throw re;
+			} catch (Throwable e) {
+				throw new RuntimeException(e);
 			}
-		}
-		return result;
+		}, retries, interval);
 	}
 
 }

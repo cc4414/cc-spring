@@ -1,8 +1,6 @@
 package cc.cc4414.spring.common.lock;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Lock;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -10,11 +8,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
-import org.springframework.integration.support.locks.LockRegistry;
 import org.springframework.stereotype.Component;
 
-import cc.cc4414.spring.common.result.CommonResultEnum;
-import cc.cc4414.spring.common.result.ResultException;
 import cc.cc4414.spring.common.util.SpelUtils;
 import cn.hutool.core.util.StrUtil;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +25,7 @@ import lombok.RequiredArgsConstructor;
 @Order(1)
 public class LockAspect {
 
-	private final LockRegistry lockRegistry;
+	private final LockTemplate lockTemplate;
 
 	@Around("@annotation(lockAnnotation)")
 	public Object around(ProceedingJoinPoint pjp, LockAnnotation lockAnnotation) throws Throwable {
@@ -47,15 +42,14 @@ public class LockAspect {
 			// 解析spel表达式，作为key的后缀
 			lockKey += ":" + SpelUtils.parse(spelKey, method, pjp.getArgs());
 		}
-		Lock lock = lockRegistry.obtain(lockKey);
-		if (lock.tryLock(lockAnnotation.time(), TimeUnit.MILLISECONDS)) {
+		return lockTemplate.lock(() -> {
 			try {
 				return pjp.proceed();
-			} finally {
-				lock.unlock();
+			} catch (RuntimeException re) {
+				throw re;
+			} catch (Throwable e) {
+				throw new RuntimeException(e);
 			}
-		} else {
-			throw new ResultException(CommonResultEnum.OBTAIN_LOCK_FAILED);
-		}
+		}, lockKey, lockAnnotation.time());
 	}
 }
