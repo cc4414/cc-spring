@@ -2,6 +2,7 @@ package cc.cc4414.spring.sys.controller;
 
 import javax.validation.constraints.Pattern;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/sys/tenant")
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "cc-spring.sys.controller", name = "tenant", havingValue = "true", matchIfMissing = true)
 public class TenantController {
 	private final ITenantService iTenantService;
 

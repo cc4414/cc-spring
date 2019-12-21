@@ -2,6 +2,7 @@ package cc.cc4414.spring.sys.controller;
 
 import java.util.List;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/sys/dictItem")
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "cc-spring.sys.controller", name = "dictItem", havingValue = "true", matchIfMissing = true)
 public class DictItemController {
 	private final IDictItemService iDictItemService;
 

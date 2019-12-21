@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>cc.cc4414</groupId>
 		<artifactId>cc-spring-boot-starter-parent</artifactId>
-		<version>0.5.2</version>
+		<version>0.6.0</version>
 	</parent>
 	<artifactId>cc-spring-cloud-starter</artifactId>
 	<dependencies>

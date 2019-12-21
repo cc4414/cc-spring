@@ -5,6 +5,7 @@ import java.util.List;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/sys/authority")
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "cc-spring.sys.controller", name = "authority", havingValue = "true", matchIfMissing = true)
 public class AuthorityController {
 	private final IAuthorityService iAuthorityService;
 

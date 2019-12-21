@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.constraints.Pattern;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/sys/dept")
 @RequiredArgsConstructor
+@ConditionalOnProperty(prefix = "cc-spring.sys.controller", name = "dept", havingValue = "true", matchIfMissing = true)
 public class DeptController {
 	private final IDeptService iDeptService;
 
