@@ -5,6 +5,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.core.annotation.AliasFor;
 
@@ -42,4 +43,9 @@ public @interface LockAnnotation {
 	 * 等待锁的最长时间，单位为毫秒
 	 */
 	long time() default 0L;
+
+	/**
+	 * 时间单位
+	 */
+	TimeUnit unit() default TimeUnit.MILLISECONDS;
 }

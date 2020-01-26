@@ -50,6 +50,6 @@ public class LockAspect {
 			} catch (Throwable e) {
 				throw new RuntimeException(e);
 			}
-		}, lockKey, lockAnnotation.time());
+		}, lockKey, lockAnnotation.time(), lockAnnotation.unit());
 	}
 }
