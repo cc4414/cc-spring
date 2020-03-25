@@ -25,10 +25,9 @@ public class ClassUtils {
 	 */
 	public String[] scanComponent(String packageName) {
 		Set<Class<?>> classes = ClassUtil.scanPackage(packageName);
-		String[] classNames = classes.stream()
+		return classes.stream()
 				.filter(i -> AnnotatedElementUtils.hasAnnotation(i, Component.class)
 						&& !AnnotatedElementUtils.hasAnnotation(i, Import.class))
-				.map(i -> i.getName()).toArray(String[]::new);
-		return classNames;
+				.map(Class::getName).toArray(String[]::new);
 	}
 }

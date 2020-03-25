@@ -1,6 +1,6 @@
 package cc.cc4414.spring.auth.service.impl;
 
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -35,7 +35,7 @@ public class SysUserServiceImpl implements ISysUserService {
 
 	@Override
 	public List<String> listAuthorityByUserId(String userId) {
-		return Arrays.asList(userId);
+		return Collections.singletonList(userId);
 	}
 
 }

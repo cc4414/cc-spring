@@ -44,7 +44,7 @@ public class DictItemController {
 	@PreAuthorize("@pms.inner() || hasAuthority('admin')")
 	public DictItem addDictItem(@RequestBody @Validated(DictItem.AddDictItem.class) DictItem dictItem) {
 		return iDictItemService.add(dictItem);
-	};
+	}
 
 	/**
 	 * 根据id删除字典项

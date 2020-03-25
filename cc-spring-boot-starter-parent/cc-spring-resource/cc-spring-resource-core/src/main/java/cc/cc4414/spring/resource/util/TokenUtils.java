@@ -39,9 +39,7 @@ public class TokenUtils {
 			String date = redisTemplate.opsForValue().get(ResourceConsts.EXPIRES + id);
 			if (date != null) {
 				long iat = json.getByPath(ResourceConsts.IAT, Long.class);
-				if (iat < Long.parseLong(date)) {
-					return true;
-				}
+				return iat < Long.parseLong(date);
 			}
 		}
 		return false;

@@ -1,14 +1,11 @@
 package cc.cc4414.spring.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Service;
@@ -76,7 +73,6 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 				wrapperModifier.eq(Authority::getModifierId, user.getId());
 				wrapperModifier.set(Authority::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}
@@ -144,7 +140,7 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 		});
 		iRoleAuthorityService.saveBatch(roleAuthorities);
 		// 校验权限及角色是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iRoleService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -157,7 +153,7 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 		wrapper.eq(RoleAuthority::getAuthorityId, id);
 		iRoleAuthorityService.remove(wrapper);
 		// 校验权限是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -173,7 +169,7 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 		wrapper.in(RoleAuthority::getRoleId, ids);
 		iRoleAuthorityService.remove(wrapper);
 		// 校验权限是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -218,7 +214,7 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 			log.debug("查询成功: null");
 			return null;
 		}
-		setList(Arrays.asList(entity), roleList);
+		setList(Collections.singletonList(entity), roleList);
 		return entity;
 	}
 
@@ -250,7 +246,7 @@ public class AuthorityServiceImpl extends CcServiceImpl<AuthorityMapper, Authori
 		if (CollUtil.isEmpty(list)) {
 			return;
 		}
-		List<String> ids = list.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> ids = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		if (roleList) {
 			Map<String, List<Role>> listMap = iRoleService.listMapByAuthorityIds(ids);
 			list.forEach(i -> i.setRoleList(listMap.get(i.getId())));

@@ -57,7 +57,7 @@ public class UserController {
 			name = username;
 		}
 		return iUserService.add(name, username, password);
-	};
+	}
 
 	/**
 	 * 新增用户，并给用户添加角色及部门
@@ -75,7 +75,7 @@ public class UserController {
 		}
 		return iUserService.add(user.getName(), user.getUsername(), user.getPassword(), user.getRoleIds(),
 				user.getDeleteIds());
-	};
+	}
 
 	/**
 	 * 根据id删除用户

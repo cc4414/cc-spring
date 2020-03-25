@@ -1,14 +1,11 @@
 package cc.cc4414.spring.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Service;
@@ -77,7 +74,6 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 				wrapperModifier.eq(Role::getModifierId, user.getId());
 				wrapperModifier.set(Role::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}
@@ -120,7 +116,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		});
 		iUserRoleService.saveBatch(userRoles);
 		// 校验角色及用户是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iUserService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -133,7 +129,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		wrapper.eq(UserRole::getRoleId, id);
 		iUserRoleService.remove(wrapper);
 		// 校验角色是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -149,7 +145,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		wrapper.in(UserRole::getUserId, ids);
 		iUserRoleService.remove(wrapper);
 		// 校验角色是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -183,7 +179,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		});
 		iRoleAuthorityService.saveBatch(roleAuthorities);
 		// 校验角色及权限是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iAuthorityService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -196,7 +192,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		wrapper.eq(RoleAuthority::getRoleId, id);
 		iRoleAuthorityService.remove(wrapper);
 		// 校验角色是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -212,7 +208,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		wrapper.in(RoleAuthority::getAuthorityId, ids);
 		iRoleAuthorityService.remove(wrapper);
 		// 校验角色是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -261,7 +257,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 			log.debug("查询成功: null");
 			return null;
 		}
-		setList(Arrays.asList(entity), userList, authorityList);
+		setList(Collections.singletonList(entity), userList, authorityList);
 		return entity;
 	}
 
@@ -294,7 +290,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		if (CollUtil.isEmpty(list)) {
 			return;
 		}
-		List<String> ids = list.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> ids = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		if (userList) {
 			Map<String, List<User>> listMap = iUserService.listMapByRoleIds(ids);
 			list.forEach(i -> i.setUserList(listMap.get(i.getId())));
@@ -336,7 +332,7 @@ public class RoleServiceImpl extends CcServiceImpl<RoleMapper, Role> implements 
 		wrapper.eq(Authority::getType, 0);
 		List<Authority> list = iAuthorityService.list(wrapper);
 		List<String> authorityIds = list.stream().map(Authority::getId).collect(Collectors.toList());
-		Role role = add(SysConsts.ADMIN, Arrays.asList(id), authorityIds);
+		Role role = add(SysConsts.ADMIN, Collections.singletonList(id), authorityIds);
 		log.debug("新增成功");
 		return role;
 	}

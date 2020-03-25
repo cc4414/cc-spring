@@ -49,7 +49,7 @@ public class RoleController {
 	@PreAuthorize("@pms.inner() || hasAuthority('sys_role_add')")
 	public Role add(@Pattern(regexp = RegexpConsts.ROLE_NAME) @RequestParam String name) {
 		return iRoleService.add(name);
-	};
+	}
 
 	/**
 	 * 新增角色，并给角色添加用户及权限
@@ -62,7 +62,7 @@ public class RoleController {
 	@PreAuthorize("@pms.inner() || hasAuthority('sys_role_add')")
 	public Role addRole(@RequestBody @Validated(Role.AddRole.class) Role role) {
 		return iRoleService.add(role.getName(), role.getUserIds(), role.getAuthorityIds());
-	};
+	}
 
 	/**
 	 * 根据id删除角色

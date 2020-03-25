@@ -62,7 +62,7 @@ public class DictController {
 	public Dict addDict(@RequestBody @Validated(Dict.AddDict.class) Dict dict) {
 		// dictItemList的参数未进行非空校验，若为空，则抛出异常
 		return iDictService.add(dict.getName(), dict.getCode(), dict.getRemarks(), dict.getDictItemList());
-	};
+	}
 
 	/**
 	 * 根据id删除字典

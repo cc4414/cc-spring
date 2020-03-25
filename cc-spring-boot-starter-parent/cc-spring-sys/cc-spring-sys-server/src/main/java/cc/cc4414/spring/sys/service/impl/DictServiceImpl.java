@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cache.annotation.CacheEvict;
@@ -62,7 +63,6 @@ public class DictServiceImpl extends CcServiceImpl<DictMapper, Dict> implements 
 				wrapperModifier.eq(Dict::getModifierId, user.getId());
 				wrapperModifier.set(Dict::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}
@@ -130,7 +130,7 @@ public class DictServiceImpl extends CcServiceImpl<DictMapper, Dict> implements 
 		LambdaQueryWrapper<DictItem> wrapper = Wrappers.lambdaQuery();
 		wrapper.eq(DictItem::getDictId, id);
 		List<DictItem> list = iDictItemService.list(wrapper);
-		iDictItemService.deleteByIds(list.stream().map(i -> i.getId()).collect(Collectors.toList()));
+		iDictItemService.deleteByIds(list.stream().map(BaseEntity::getId).collect(Collectors.toList()));
 		iDictItemService.addBatch(dictItems);
 	}
 
@@ -154,7 +154,7 @@ public class DictServiceImpl extends CcServiceImpl<DictMapper, Dict> implements 
 		if (CollUtil.isEmpty(list)) {
 			return;
 		}
-		List<String> ids = list.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> ids = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		if (dictItemList) {
 			Map<String, List<DictItem>> listMap = iDictItemService.listMapByDictIds(ids);
 			list.forEach(i -> i.setDictItemList(listMap.get(i.getId())));

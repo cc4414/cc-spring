@@ -55,7 +55,6 @@ public class TenantServiceImpl extends CcServiceImpl<TenantMapper, Tenant> imple
 				wrapperModifier.eq(Tenant::getModifierId, user.getId());
 				wrapperModifier.set(Tenant::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}

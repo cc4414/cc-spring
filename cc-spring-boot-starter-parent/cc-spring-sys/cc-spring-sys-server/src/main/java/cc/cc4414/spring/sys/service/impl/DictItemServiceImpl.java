@@ -1,10 +1,6 @@
 package cc.cc4414.spring.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -60,7 +56,6 @@ public class DictItemServiceImpl extends CcServiceImpl<DictItemMapper, DictItem>
 				wrapperModifier.eq(DictItem::getModifierId, user.getId());
 				wrapperModifier.set(DictItem::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}
@@ -73,7 +68,7 @@ public class DictItemServiceImpl extends CcServiceImpl<DictItemMapper, DictItem>
 		DictItem entity = convertAdd(dictItem);
 		save(entity);
 		// 校验字典是否存在
-		iDictService.checkAllIsExist(Arrays.asList(entity.getDictId()));
+		iDictService.checkAllIsExist(Collections.singletonList(entity.getDictId()));
 		log.debug("新增成功: {}", entity);
 		return entity;
 	}
@@ -86,10 +81,10 @@ public class DictItemServiceImpl extends CcServiceImpl<DictItemMapper, DictItem>
 		if (CollUtil.isEmpty(dictItems)) {
 			return;
 		}
-		List<DictItem> entityList = dictItems.stream().map(i -> convertAdd(i)).collect(Collectors.toList());
+		List<DictItem> entityList = dictItems.stream().map(this::convertAdd).collect(Collectors.toList());
 		saveBatch(entityList);
 		// 校验字典是否存在
-		iDictService.checkAllIsExist(entityList.stream().map(i -> i.getDictId()).collect(Collectors.toList()));
+		iDictService.checkAllIsExist(entityList.stream().map(DictItem::getDictId).collect(Collectors.toList()));
 		log.debug("新增成功");
 	}
 
@@ -158,8 +153,7 @@ public class DictItemServiceImpl extends CcServiceImpl<DictItemMapper, DictItem>
 	@Override
 	public List<DictItem> listEnabledByDictCode(String code) {
 		Dict dict = iDictService.getEnabledByCode(code);
-		List<DictItem> list = dict.getDictItemList();
-		return list;
+		return dict.getDictItemList();
 	}
 
 	@Override

@@ -1,14 +1,11 @@
 package cc.cc4414.spring.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.stereotype.Service;
@@ -79,7 +76,6 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 				wrapperModifier.eq(Dept::getModifierId, user.getId());
 				wrapperModifier.set(Dept::getModifierName, user.getName());
 				update(null, wrapperModifier);
-				return;
 			}
 		});
 	}
@@ -102,7 +98,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 		if (StrUtil.isBlank(id)) {
 			return;
 		}
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		List<String> ids = iTreePathService.deleteNode(id);
 		deleteByIds(ids);
 		log.debug("删除成功");
@@ -138,7 +134,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 		});
 		iUserDeptService.saveBatch(userDepts);
 		// 校验部门及用户是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iUserService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -151,7 +147,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 		wrapper.eq(UserDept::getDeptId, id);
 		iUserDeptService.remove(wrapper);
 		// 校验部门是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -167,7 +163,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 		wrapper.in(UserDept::getUserId, ids);
 		iUserDeptService.remove(wrapper);
 		// 校验部门是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -216,7 +212,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 			log.debug("查询成功: null");
 			return null;
 		}
-		setList(Arrays.asList(entity), userList);
+		setList(Collections.singletonList(entity), userList);
 		return entity;
 	}
 
@@ -248,7 +244,7 @@ public class DeptServiceImpl extends CcServiceImpl<DeptMapper, Dept> implements 
 		if (CollUtil.isEmpty(list)) {
 			return;
 		}
-		List<String> ids = list.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> ids = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		if (userList) {
 			Map<String, List<User>> listMap = iUserService.listMapByDeptIds(ids);
 			list.forEach(i -> i.setUserList(listMap.get(i.getId())));

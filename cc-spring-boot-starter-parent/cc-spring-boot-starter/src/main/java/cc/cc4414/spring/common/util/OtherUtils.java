@@ -29,7 +29,7 @@ public class OtherUtils {
 		List<R> result = new ArrayList<>();
 		int s = list.size();
 		for (int i = 0; i < s; i += size) {
-			result.addAll(fun.apply(list.subList(i, i + size < s ? i + size : s)));
+			result.addAll(fun.apply(list.subList(i, Math.min(i + size, s))));
 		}
 		return result;
 	}

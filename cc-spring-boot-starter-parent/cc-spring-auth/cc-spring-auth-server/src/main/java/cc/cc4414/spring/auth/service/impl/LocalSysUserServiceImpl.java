@@ -3,6 +3,7 @@ package cc.cc4414.spring.auth.service.impl;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -42,7 +43,7 @@ public class LocalSysUserServiceImpl implements ISysUserService {
 		BeanUtils.copyProperties(user, userDetails);
 		User userInfo = iUserService.get(user.getId(), false, true);
 		List<Dept> deptList = userInfo.getDeptList();
-		List<String> deptIds = deptList.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> deptIds = deptList.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		userDetails.setDeptIds(deptIds);
 		if (deptList.size() > 0) {
 			// 如果用户有所在部门，则将第一个用户所在部门的id和名称设置到用户详细信息
@@ -56,7 +57,7 @@ public class LocalSysUserServiceImpl implements ISysUserService {
 	@Override
 	public List<String> listAuthorityByUserId(String userId) {
 		List<Authority> list = iAuthorityService.listByUserId(userId);
-		return list.stream().map(i -> i.getCode()).collect(Collectors.toList());
+		return list.stream().map(Authority::getCode).collect(Collectors.toList());
 	}
 
 }

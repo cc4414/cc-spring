@@ -52,7 +52,7 @@ public class DeptController {
 	public Dept addDept(@Pattern(regexp = RegexpConsts.DEPT_NAME) @RequestParam String name,
 			@RequestParam String parentId) {
 		return iDeptService.add(name, parentId, null);
-	};
+	}
 
 	/**
 	 * 根据id删除部门及其子部门

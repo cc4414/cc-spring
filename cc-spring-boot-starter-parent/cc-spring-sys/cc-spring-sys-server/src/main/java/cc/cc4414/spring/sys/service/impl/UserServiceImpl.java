@@ -1,14 +1,11 @@
 package cc.cc4414.spring.sys.service.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
+import cc.cc4414.spring.mybatis.entity.BaseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -100,7 +97,6 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 				wrapperDept.eq(User::getDeptId, dept.getId());
 				wrapperDept.set(User::getDeptName, dept.getName());
 				update(null, wrapperDept);
-				return;
 			}
 		});
 	}
@@ -151,7 +147,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		});
 		iUserRoleService.saveBatch(userRoles);
 		// 校验用户及角色是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iRoleService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -164,7 +160,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		wrapper.eq(UserRole::getUserId, id);
 		iUserRoleService.remove(wrapper);
 		// 校验用户是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -180,7 +176,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		wrapper.in(UserRole::getRoleId, ids);
 		iUserRoleService.remove(wrapper);
 		// 校验用户是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -214,7 +210,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		});
 		iUserDeptService.saveBatch(userDepts);
 		// 校验用户及部门是否存在以及是否被禁用
-		checkAllIsEnable(Arrays.asList(id));
+		checkAllIsEnable(Collections.singletonList(id));
 		iDeptService.checkAllIsEnable(ids);
 		log.debug("添加成功");
 	}
@@ -227,7 +223,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		wrapper.eq(UserDept::getUserId, id);
 		iUserDeptService.remove(wrapper);
 		// 校验用户是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -243,7 +239,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 		wrapper.in(UserDept::getDeptId, ids);
 		iUserDeptService.remove(wrapper);
 		// 校验用户是否存在
-		checkAllIsExist(Arrays.asList(id));
+		checkAllIsExist(Collections.singletonList(id));
 		log.debug("移除成功");
 	}
 
@@ -292,7 +288,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 			log.debug("查询成功: null");
 			return null;
 		}
-		setList(Arrays.asList(entity), roleList, deptList);
+		setList(Collections.singletonList(entity), roleList, deptList);
 		return entity;
 	}
 
@@ -317,15 +313,15 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 	 * 查询并设置每个用户中对应的角色及部门列表
 	 * 
 	 * @param list          用户列表
-	 * @param userList      是否查询对应角色列表
-	 * @param authorityList 是否查询对应部门列表
+	 * @param roleList      是否查询对应角色列表
+	 * @param deptList 是否查询对应部门列表
 	 */
 	private void setList(List<User> list, boolean roleList, boolean deptList) {
 		log.debug("开始查询，共{}条", list.size());
 		if (CollUtil.isEmpty(list)) {
 			return;
 		}
-		List<String> ids = list.stream().map(i -> i.getId()).collect(Collectors.toList());
+		List<String> ids = list.stream().map(BaseEntity::getId).collect(Collectors.toList());
 		if (roleList) {
 			Map<String, List<Role>> listMap = iRoleService.listMapByUserIds(ids);
 			list.forEach(i -> i.setRoleList(listMap.get(i.getId())));
@@ -371,7 +367,7 @@ public class UserServiceImpl extends CcServiceImpl<UserMapper, User> implements 
 			tenantId = strings[1];
 			if (!SysConsts.ID.equals(tenantId)) {
 				try {
-					iTenantService.checkAllIsEnable(Arrays.asList(tenantId));
+					iTenantService.checkAllIsEnable(Collections.singletonList(tenantId));
 				} catch (ResultException e) {
 					log.debug("查询成功: null");
 					return null;

@@ -99,16 +99,14 @@ public class TreePathServiceImpl extends ServiceImpl<TreePathMapper, TreePath> i
 		List<TreePath> entityList = new ArrayList<>();
 		List<TreePath> ancestorList = findAncestorList(parentId);
 		// 嫁接
-		ancestorList.forEach(i -> {
-			descendantList.forEach(j -> {
-				TreePath treePath = new TreePath();
-				treePath.setAncestor(i.getAncestor());
-				treePath.setDescendant(j.getDescendant());
-				treePath.setDistance(i.getDistance() + j.getDistance() + 1);
-				treePath.setScope(i.getScope());
-				entityList.add(treePath);
-			});
-		});
+		ancestorList.forEach(i -> descendantList.forEach(j -> {
+			TreePath treePath = new TreePath();
+			treePath.setAncestor(i.getAncestor());
+			treePath.setDescendant(j.getDescendant());
+			treePath.setDistance(i.getDistance() + j.getDistance() + 1);
+			treePath.setScope(i.getScope());
+			entityList.add(treePath);
+		}));
 		if (CollUtil.isNotEmpty(entityList)) {
 			saveBatch(entityList);
 		}
@@ -172,8 +170,7 @@ public class TreePathServiceImpl extends ServiceImpl<TreePathMapper, TreePath> i
 	private List<TreePath> findAncestorList(String id) {
 		LambdaQueryWrapper<TreePath> wrapper = Wrappers.lambdaQuery();
 		wrapper.eq(TreePath::getDescendant, id);
-		List<TreePath> list = list(wrapper);
-		return list;
+		return list(wrapper);
 	}
 
 	/**
@@ -185,8 +182,7 @@ public class TreePathServiceImpl extends ServiceImpl<TreePathMapper, TreePath> i
 	private List<TreePath> findDescendantList(String id) {
 		LambdaQueryWrapper<TreePath> wrapper = Wrappers.lambdaQuery();
 		wrapper.eq(TreePath::getAncestor, id);
-		List<TreePath> list = list(wrapper);
-		return list;
+		return list(wrapper);
 	}
 
 	@Override

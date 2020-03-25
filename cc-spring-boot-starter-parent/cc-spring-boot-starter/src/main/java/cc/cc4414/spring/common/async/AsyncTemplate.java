@@ -1,8 +1,10 @@
 package cc.cc4414.spring.common.async;
 
+import java.util.concurrent.Future;
 import java.util.function.Supplier;
 
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,7 +22,7 @@ public class AsyncTemplate {
 	 * @return 代码块的返回结果，如果没有则需要返回null
 	 */
 	@Async
-	public <T> T async(Supplier<T> supplier) {
-		return supplier.get();
+	public <T> Future<T> async(Supplier<T> supplier) {
+		return AsyncResult.forValue(supplier.get());
 	}
 }
